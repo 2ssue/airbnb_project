@@ -11,9 +11,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
-      reservation: {
+      possible_guest: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(2,1)
       },
       price: {
         allowNull: false,

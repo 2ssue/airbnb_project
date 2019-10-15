@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     booking_date: DataTypes.STRING,
     resort_name: DataTypes.STRING,
-    booker_id: DataTypes.STRING
+    guest_id: DataTypes.STRING
   }, {
     timestamps: false
   });
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "resort_name"
     })
     Booking.belongsTo(models.user, {
-      foreignKey: "booker_id"
+      foreignKey: "guest_id"
     })
   };
   return Booking;

@@ -26,9 +26,9 @@ module.exports = {
         onDelete: 'cascade',
         onUpdate: 'cascade'
       }),
-      queryInterface.addConstraint('bookings', ['booker_id'], {
+      queryInterface.addConstraint('bookings', ['guest_id'], {
         type: 'foreign key',
-        name: 'booker_id', 
+        name: 'guest_id', 
         references: {
           table: 'users',
           field: 'userid'
@@ -54,7 +54,7 @@ module.exports = {
       queryInterface.removeConstraint('reviews', 'fk_review_resort_name'),
       queryInterface.removeConstraint('reviews', 'reviewer_id'),
       queryInterface.removeConstraint('bookings', 'fk_booking_resort_name'),
-      queryInterface.removeConstraint('bookings', 'booker_id')
+      queryInterface.removeConstraint('bookings', 'guest_id')
     ]);
   }
 };

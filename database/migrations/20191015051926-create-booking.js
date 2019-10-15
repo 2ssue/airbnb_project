@@ -15,7 +15,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(500)
       },
-      booker_id: {
+      guest_id: {
         allowNull: false,
         type: Sequelize.STRING(20)
       }

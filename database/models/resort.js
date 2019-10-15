@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     photo_url: DataTypes.TEXT,
-    reservation: DataTypes.INTEGER,
+    possible_guest: DataTypes.DECIMAL,
     price: DataTypes.INTEGER
   }, {
     timestamps: false
