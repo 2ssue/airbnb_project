@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
   Resort.associate = function(models) {
-    Resort.hasMany(models.booking, {onDelete: 'cascade'});
-    Resort.hasMany(models.review, {onDelete: 'cascade'});
+    Resort.hasMany(models.booking, {onDelete: 'cascade', foreignKey: 'resort_name'});
+    Resort.hasMany(models.review, {onDelete: 'cascade', foreignKey: 'resort_name'});
   };
   return Resort;
 };
