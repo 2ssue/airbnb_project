@@ -19,4 +19,11 @@ router.post('/user/login', async function(req, res, next){
     }
 })
 
+router.post('/', async function(req, res, next){
+    const { userId, password, name } = req.body;
+    const result = await user.findOrCreate( { where: { userid: userId, password, name }});
+
+    res.json({ result: result[1] });
+})
+
 module.exports = router;
