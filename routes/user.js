@@ -26,4 +26,11 @@ router.post('/', async function(req, res, next){
     res.json({ result: result[1] });
 })
 
+router.get('/:userid', async function(req, res, next){
+    const userId = req.url.split('/').pop();
+    const result = await user.findOne({ where: { userid: userId }});
+    
+    res.json({ result: result ? 'found':'not-found' });
+})
+
 module.exports = router;
