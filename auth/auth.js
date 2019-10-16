@@ -40,8 +40,8 @@ const verifyUser = (req, res, next) => {
  * 유저 데이터에 대한 token을 발급, 만료시간을 1시간으로 설정.
  * 
  * @param {Object} user 
+ * @return {String} jwt 토큰 
  */
-
 const issueToken = (user) => {
     const token = jwt.sign({
             name: user.name
