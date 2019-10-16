@@ -5,10 +5,7 @@ const auth = require('../auth/auth');
 
 router.post('/user/login', async function(req, res, next){
     const { userId, password } = req.body;
-    const userData = await user.findOne({ where: {
-        userid: userId,
-        password: password
-    } });
+    const userData = await user.findOne({ where: { userid: userId, password }});
 
     if(userData){
         const token = auth.issueToken(userData);
