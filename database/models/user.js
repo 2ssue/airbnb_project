@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
   
+  User.associate = function(models) {
+    User.hasMany(models.booking, {onDelete: 'cascade', foreignKey: 'guest_id'});
+    User.hasMany(models.review, {onDelete: 'cascade', foreignKey: 'reviewer_id'});
+  };
+
   User.findUser = async function(content){
     const { userId, password } = content;
     return await User.findOne({
@@ -44,10 +49,6 @@ module.exports = (sequelize, DataTypes) => {
 
     return user ? true : false;
   }
-
-  User.associate = function(models) {
-    User.hasMany(models.booking, {onDelete: 'cascade', foreignKey: 'guest_id'});
-    User.hasMany(models.review, {onDelete: 'cascade', foreignKey: 'reviewer_id'});
-  };
+  
   return User;
 };
