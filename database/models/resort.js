@@ -43,6 +43,12 @@ module.exports = (sequelize, DataTypes) => {
   return Resort;
 };
 
+/**
+ * 전송받은 파라미터에 따른 조건 객체를 만드는 함수
+ * 
+ * @param {Object} params 
+ * @return {ObjectArray} 생성한 조건 객체
+ */
 const makeCondition = (params) => {
   const { start, end, guest, price } = params;
   let resortCondition = {};
