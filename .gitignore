@@ -63,3 +63,6 @@ typings/
 # converted stylesheets
 *.css
 *.css.map
+
+# test file
+bulk_resort.csv
