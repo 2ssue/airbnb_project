@@ -5,11 +5,16 @@ module.exports = {
       book_num: {
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
         type: Sequelize.BIGINT
       },
-      booking_date: {
+      start_date: {
         allowNull: false,
-        type: Sequelize.STRING(45)
+        type: Sequelize.DATE
+      },
+      end_date: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
       resort_name: {
         allowNull: false,

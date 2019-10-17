@@ -3,14 +3,17 @@ module.exports = (sequelize, DataTypes) => {
   const Booking = sequelize.define('booking', {
     book_num: {
       type: DataTypes.BIGINT,
+      autoIncrement: true,
       primaryKey: true
     },
-    booking_date: DataTypes.STRING,
+    start_date: DataTypes.DATE,
+    end_date: DataTypes.DATE,
     resort_name: DataTypes.STRING,
     guest_id: DataTypes.STRING
   }, {
     timestamps: false
   });
+  
   Booking.associate = function(models) {
     Booking.belongsTo(models.resort, {
       foreignKey: "resort_name"
