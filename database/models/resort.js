@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     photo_url: DataTypes.TEXT,
     possible_guest: DataTypes.DECIMAL,
+    possible_room: DataTypes.INTEGER,
     price: DataTypes.INTEGER
   }, {
     timestamps: false

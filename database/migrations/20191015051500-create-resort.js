@@ -13,7 +13,11 @@ module.exports = {
       },
       possible_guest: {
         allowNull: false,
-        type: Sequelize.DECIMAL(2,1)
+        type: Sequelize.DECIMAL(3,1)
+      },
+      possible_room: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       price: {
         allowNull: false,
