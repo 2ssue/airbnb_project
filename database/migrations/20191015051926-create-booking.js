@@ -8,11 +8,11 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.BIGINT
       },
-      start_date: {
+      check_in: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      end_date: {
+      check_out: {
         allowNull: false,
         type: Sequelize.DATE
       },

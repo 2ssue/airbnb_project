@@ -50,15 +50,15 @@ module.exports = (sequelize, DataTypes) => {
  * @return {ObjectArray} 생성한 조건 객체
  */
 const makeCondition = (params) => {
-  const { start, end, guest, price } = params;
+  const { checkIn, checkOut, guest, price } = params;
   let resortCondition = {};
   let bookingCondition = {};
 
-  if(start && end){
+  if(checkIn && checkOut){
     bookingCondition = {
       [Sequelize.Op.or]:{
-        start_date: { [Sequelize.Op.gte]: new Date(start.split('-'))},
-        end_date: { [Sequelize.Op.lte]: new Date(end.split('-'))}
+        check_in: { [Sequelize.Op.gte]: new Date(checkIn.split('-'))},
+        check_out: { [Sequelize.Op.lte]: new Date(checkOut.split('-'))}
       }
     };
   }
