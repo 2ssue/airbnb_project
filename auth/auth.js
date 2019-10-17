@@ -42,9 +42,9 @@ const verifyUser = (req, res, next) => {
  * @param {Object} user 
  * @return {String} jwt 토큰 
  */
-const issueToken = (user) => {
+const issueToken = (name) => {
     const token = jwt.sign({
-            name: user.name
+            name
             },
             process.env.JWT_SECRET_KEY,
             {
