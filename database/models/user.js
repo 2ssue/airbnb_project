@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.review, {onDelete: 'cascade', foreignKey: 'reviewer_id'});
   };
 
-  User.findUser = async function(content){
+  User.checkRightUser = async function(content){
     const { userId, password } = content;
     return await User.findOne({
       attributes: ['name'],
@@ -49,6 +49,6 @@ module.exports = (sequelize, DataTypes) => {
 
     return user ? true : false;
   }
-  
+
   return User;
 };

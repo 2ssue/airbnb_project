@@ -4,7 +4,7 @@ const { user } = require('../database/models');
 const auth = require('../auth/auth');
 
 router.post('/user/login', async function(req, res, next){
-    const userName = await user.findUser(req.body);
+    const userName = await user.checkRightUser(req.body);
 
     if(!userName){
         res.json({ result: 'fail' });
