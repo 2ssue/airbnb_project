@@ -35,6 +35,16 @@ module.exports = (sequelize, DataTypes) => {
     return result;
   }
 
+  User.findUserById = async function(userId){
+    const user = await User.findOne({
+      where: {
+        userid: userId
+      }
+    });
+
+    return user ? true : false;
+  }
+
   User.associate = function(models) {
     User.hasMany(models.booking, {onDelete: 'cascade', foreignKey: 'guest_id'});
     User.hasMany(models.review, {onDelete: 'cascade', foreignKey: 'reviewer_id'});

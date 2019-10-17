@@ -25,8 +25,8 @@ router.post('/', async function(req, res, next){
 
 router.get('/:userid', async function(req, res, next){
     const userId = req.url.split('/').pop();
-    const result = await user.findOne({ where: { userid: userId }});
-    
+    const result = await user.findUserById(userId);
+
     res.json({ result: result ? 'found':'not-found' });
 })
 
