@@ -18,10 +18,9 @@ router.post('/user/login', async function(req, res, next){
 })
 
 router.post('/', async function(req, res, next){
-    const { userId, password, name } = req.body;
-    const result = await user.findOrCreate( { where: { userid: userId, password, name }});
+    const result = await user.createUserIfNotExists(req.body);
 
-    res.json({ result: result[1] ? 'success': 'fail' });
+    res.json({ result: result ? 'success': 'fail' });
 })
 
 router.get('/:userid', async function(req, res, next){
