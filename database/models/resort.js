@@ -51,8 +51,8 @@ module.exports = (sequelize, DataTypes) => {
  */
 const makeCondition = (params) => {
   const { checkIn, checkOut, guest, price } = params;
-  let resortCondition = {};
-  let bookingCondition = {};
+  const resortCondition = {};
+  const bookingCondition = {};
 
   if(checkIn && checkOut){
     bookingCondition = {
