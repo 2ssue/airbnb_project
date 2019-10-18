@@ -1,9 +1,9 @@
 # Airbnb WebPage Project
 
-<a href="https://github.com/2ssue/membership-airbnb/wiki/API)">
+<a href="https://github.com/2ssue/membership-airbnb/wiki/API">
     <img alt="project-management" src="https://img.shields.io/badge/api--document-wiki-informational" target="_blank" />
 </a>
-<a href="https://github.com/2ssue/membership-airbnb/wiki/Database-Structure)">
+<a href="https://github.com/2ssue/membership-airbnb/wiki/Database-Structure">
     <img alt="project-management" src="https://img.shields.io/badge/database--document-wiki-blue" target="_blank" />
 </a>
 
