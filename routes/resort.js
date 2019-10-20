@@ -6,11 +6,14 @@ const { verifyUser } = require('../auth/auth');
 router.use(verifyUser);
 
 router.get('/', async function(req, res, next){
+    let data;
     if(req.query){
-        res.json(await resort.getPartResort(req.query));
+        data = await resort.getPartResort(req.query);
     }else{
-        res.json(await resort.getAllResort());
+        data = await resort.getAllResort();
     }
+
+    res.json({ result: data ? "success" : "fail", data });
 })
 
 module.exports = router;
