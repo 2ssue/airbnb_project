@@ -10,9 +10,6 @@ const resortRouter = require('./routes/resort');
 const userRouter = require('./routes/user');
 
 const app = express();
-const sequelize = require('./database/models').sequelize;
-
-sequelize.sync();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

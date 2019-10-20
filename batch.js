@@ -3,10 +3,9 @@ const filename = process.argv[2] || '';
 try{
     const fs = require('fs');
     const fileData = fs.readFileSync(filename, 'utf8').trim();
-    const sequelize = require('./database/models').sequelize;
-
-    sequelize.sync().then(() => {
+    const { resort } = require('./database/models');
         console.log('parsing...');
+        
         const parse = require('csv-parse');
         const output = [];
         parse(fileData, {
@@ -19,18 +18,12 @@ try{
                 output.push(record);
             }
         }).on('end', function(){
-            sequelize.models.resort.bulkCreate(output).then(() => {
+            resort.bulkCreate(output).then(() => {
                 console.log('...complete');
             }).catch(err => {
-                console.log('insert error', err.message);
-            }).finally(() => {
-                sequelize.close();
+                console.error('insert error', err.message);
             })
-        });
-    }).catch(err => {
-        console.log('database sync error', err.message);
-        sequelize.close();
-    })
+        })
 }catch(err){
-    console.log('file error:', err.message);
+    console.error('file error:', err.message);
 }
