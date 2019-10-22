@@ -6,9 +6,11 @@ import Guest from './navigation/guest';
 import Price from './navigation/price';
 
 function Nav(){
+    const [calenderModalVisibility, setCalenderVisibility] = useState(false);
+
     return (
         <Navigation>
-            <Calender />
+            <Calender setVisibility={setCalenderVisibility} visibility={calenderModalVisibility}/>
             <Guest />
             <Price />
         </Navigation>

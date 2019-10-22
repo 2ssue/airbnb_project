@@ -10,7 +10,7 @@ function App() {
       <Header>
         <Logo src={logo} alt='logo'/>
       </Header>
-      <Nav/>
+      <Nav />
     </div>
   );
 }
