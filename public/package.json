@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "eslint-config-airbnb": "^18.0.1",
     "http-proxy-middleware": "^0.20.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
@@ -15,7 +16,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "airbnb"
+    ]
   },
   "browserslist": {
     "production": [
