@@ -5,19 +5,19 @@ module.exports = {
       userid: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(20),
       },
       password: {
         allowNull: false,
-        type: Sequelize.STRING(30)
+        type: Sequelize.STRING(30),
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING(100)
-      }
+        type: Sequelize.STRING(100),
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('users');
-  }
+  },
 };

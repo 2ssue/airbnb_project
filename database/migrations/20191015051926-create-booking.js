@@ -6,27 +6,27 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
-        type: Sequelize.BIGINT
+        type: Sequelize.BIGINT,
       },
       check_in: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       check_out: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       resort_name: {
         allowNull: false,
-        type: Sequelize.STRING(500)
+        type: Sequelize.STRING(500),
       },
       guest_id: {
         allowNull: false,
-        type: Sequelize.STRING(20)
-      }
+        type: Sequelize.STRING(20),
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('bookings');
-  }
+  },
 };

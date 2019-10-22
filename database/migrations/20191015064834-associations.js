@@ -8,44 +8,44 @@ module.exports = {
     return Promise.all([
       queryInterface.addConstraint('reviews', ['resort_name'], {
         type: 'foreign key',
-        name: 'fk_review_resort_name', 
+        name: 'fk_review_resort_name',
         references: {
           table: 'resorts',
-          field: 'name'
+          field: 'name',
         },
         onDelete: 'cascade',
-        onUpdate: 'cascade'
-      }), 
+        onUpdate: 'cascade',
+      }),
       queryInterface.addConstraint('reviews', ['reviewer_id'], {
         type: 'foreign key',
-        name: 'reviewer_id', 
+        name: 'reviewer_id',
         references: {
           table: 'users',
-          field: 'userid'
+          field: 'userid',
         },
         onDelete: 'cascade',
-        onUpdate: 'cascade'
+        onUpdate: 'cascade',
       }),
       queryInterface.addConstraint('bookings', ['guest_id'], {
         type: 'foreign key',
-        name: 'guest_id', 
+        name: 'guest_id',
         references: {
           table: 'users',
-          field: 'userid'
+          field: 'userid',
         },
         onDelete: 'cascade',
-        onUpdate: 'cascade'
+        onUpdate: 'cascade',
       }),
       queryInterface.addConstraint('bookings', ['resort_name'], {
         type: 'foreign key',
-        name: 'fk_booking_resort_name', 
+        name: 'fk_booking_resort_name',
         references: {
           table: 'resorts',
-          field: 'name'
+          field: 'name',
         },
         onDelete: 'cascade',
-        onUpdate: 'cascade'
-      })
+        onUpdate: 'cascade',
+      }),
     ]);
   },
 
@@ -54,7 +54,7 @@ module.exports = {
       queryInterface.removeConstraint('reviews', 'fk_review_resort_name'),
       queryInterface.removeConstraint('reviews', 'reviewer_id'),
       queryInterface.removeConstraint('bookings', 'fk_booking_resort_name'),
-      queryInterface.removeConstraint('bookings', 'guest_id')
+      queryInterface.removeConstraint('bookings', 'guest_id'),
     ]);
-  }
+  },
 };
