@@ -1,26 +1,28 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+
+import Nav from './Nav';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header>
+        <Logo src={logo} alt='logo'/>
+      </Header>
+      <Nav/>
     </div>
   );
 }
+
+const Logo = styled.img `
+  width: 2rem;
+  height: 2rem;
+  margin: 0.5rem;
+`;
+
+const Header = styled.header `
+  border-bottom: 1px solid lightgrey;
+`;
 
 export default App;
