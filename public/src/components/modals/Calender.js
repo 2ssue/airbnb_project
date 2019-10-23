@@ -61,7 +61,7 @@ function Calender({ close, reference }) {
             삭제
           </Button>
           <Button
-            onClick={e => {
+            onClick={() => {
               setCheckIn(startDate);
               setCheckOut(endDate);
               changeButtonColorToMain(
