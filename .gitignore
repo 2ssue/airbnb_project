@@ -60,9 +60,5 @@ typings/
 # next.js build output
 .next
 
-# converted stylesheets
-*.css
-*.css.map
-
 # test file
 bulk_resort.csv
