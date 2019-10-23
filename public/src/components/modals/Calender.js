@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { DayPickerRangeController } from 'react-dates';
 import moment from 'moment';
 import styled from 'styled-components';
@@ -14,6 +14,8 @@ function Calender({ close, reference }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focus, setFocus] = useState('startDate');
+
+  const { setCheckIn, setCheckOut } = useContext(searchInfoContext);
 
   useEffect(() => {
     if (startDate) {

@@ -5,7 +5,13 @@ import styled from 'styled-components';
 import Nav from './components/Nav';
 import Resorts from './components/Resorts';
 
+export const searchInfoContext = React.createContext();
+
 function App() {
+  const [checkIn, setCheckIn] = useState();
+  const [checkOut, setCheckOut] = useState();
+  const [guest, setGuest] = useState();
+  const [price, setPrice] = useState();
   const [resorts, setResorts] = useState([]);
   const [load, setLoad] = useState(false);
 
@@ -23,13 +29,13 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <searchInfoContext.Provider value={{ setCheckIn, setCheckOut, setGuest, setPrice }}>
       <Header>
         <Logo src={logo} alt="logo" />
       </Header>
       <Nav />
       <Resorts resorts={resorts} load={load} />
-    </div>
+    </searchInfoContext.Provider>
   );
 }
 
