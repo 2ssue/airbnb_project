@@ -18,8 +18,16 @@ function Calender({ close, reference }) {
   const { setCheckIn, setCheckOut } = useContext(searchInfoContext);
 
   useEffect(() => {
+    if (reference.current.innerHTML !== '날짜') {
+      const dateString = reference.current.innerHTML.split('~');
+
+      setStartDate(moment(dateString[0]));
+      setEndDate(moment(dateString[1]));
+    }
+  }, []);
+
+  useEffect(() => {
     if (startDate) {
-      setEndDate(null);
       setFocus('endDate');
     }
   }, [startDate]);
