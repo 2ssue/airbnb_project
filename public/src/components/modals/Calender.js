@@ -1,48 +1,126 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DayPickerRangeController } from 'react-dates';
 import moment from 'moment';
 import styled from 'styled-components';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import { colors } from '../../styles/default_style';
+import { changeButtonColorToMain } from '../../styles/change_style';
 
-function Calender({ setVisibility, visibility }) {
+import { searchInfoContext } from '../../App';
+import { Button } from '../Nav';
+
+function Calender({ close, reference }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focus, setFocus] = useState('startDate');
 
+  useEffect(() => {
+    if (startDate) {
+      setEndDate(null);
+      setFocus('endDate');
+    }
+  }, [startDate]);
+
+  useEffect(() => {
+    if (endDate) {
+      setFocus('startDate');
+    }
+  }, [endDate]);
+
   return (
-    <div>
-      <button onClick={() => setVisibility(!visibility)}>날짜</button>
-      {visibility && (
-        <DatePickerWrapper>
-          <DayPickerRangeController
-            startDate={startDate}
-            endDate={endDate}
-            onDatesChange={({ startDate, endDate }) => {
-              setStartDate(startDate);
-              setEndDate(endDate);
+    <Background onClick={close}>
+      <DatePickerWrapper>
+        <DayPickerRangeController
+          keepOpenOnDateSelect
+          hideKeyboardShortcutsPanel
+          noBorder
+          startDate={startDate}
+          endDate={endDate}
+          focusedInput={focus}
+          numberOfMonths={2}
+          onDatesChange={({ startDate, endDate }) => {
+            setStartDate(startDate);
+            setEndDate(endDate);
+          }}
+          onFocusChange={focus => setFocus(focus)}
+          isOutsideRange={day => day.isBefore(moment())}
+        ></DayPickerRangeController>
+        <ButtonContainer>
+          <Button
+            onClick={e => {
+              setStartDate(null);
+              setEndDate(null);
+              setFocus('startDate');
+              e.stopPropagation();
             }}
-            onFocusChange={focus => setFocus(focus)}
-            focusedInput={focus}
-            numberOfMonths={2}
-            keepOpenOnDateSelect
-            hideKeyboardShortcutsPanel
-          ></DayPickerRangeController>
-        </DatePickerWrapper>
-      )}
-    </div>
+            disabled={startDate ? false : true}
+          >
+            삭제
+          </Button>
+          <Button
+            onClick={e => {
+              setCheckIn(startDate);
+              setCheckOut(endDate);
+              changeButtonColorToMain(
+                reference.current,
+                `${startDate.format('YYYY[/]MM[/]DD')} ~ ${endDate.format('YYYY[/]MM[/]DD')}`,
+              );
+            }}
+            disabled={endDate ? false : true}
+          >
+            저장
+          </Button>
+        </ButtonContainer>
+      </DatePickerWrapper>
+    </Background>
   );
 }
 
-const DatePickerWrapper = styled.div`
-  position: fixed;
-  top: 6rem;
+const ButtonContainer = styled.div`
+  padding-right: 0.9rem;
+  padding-left: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Background = styled.div`
+  position: absolute;
+  top: 0;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.5);
-  > div {
-    position: fixed;
-    top: 6rem;
-    margin-left: 0.5rem;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
+const DatePickerWrapper = styled.div`
+  position: absolute;
+  top: 6rem;
+  margin-left: 0.5rem;
+  padding-top: 0.5rem;
+  background-color: white;
+  height: 22rem;
+  border-radius: 5px;
+
+  .CalendarDay__selected_span {
+    background: ${colors.mainAlpha};
+    color: white;
+    border: none;
+  }
+  .CalendarDay__selected {
+    background: ${colors.main};
+    color: white;
+    border: none;
+  }
+  .CalendarDay__selected:hover {
+    background: orange;
+    color: white;
+  }
+  .CalendarDay__hovered_span:hover,
+  .CalendarDay__hovered_span {
+    background: ${colors.mainAlpha};
+    border: none;
+    color: inherit;
   }
 `;
 
