@@ -6,6 +6,7 @@ import Guest from './modals/Guest';
 import Price from './modals/Price';
 import { filterInfoContext } from '../App';
 import { changeButtonColorToMain, changeButtonColorToDefault } from '../styles/change_style';
+import { visibilityType, modalButtonText } from '../constants';
 
 const visibilityType = {
   calendar: 'calendar',
@@ -29,21 +30,21 @@ function Nav() {
     if (checkIn && checkOut) {
       changeButtonColorToMain(calendarRef.current, `${checkIn}~${checkOut}`);
     } else if (calendarRef.current) {
-      changeButtonColorToDefault(calendarRef.current, '날짜');
+      changeButtonColorToDefault(calendarRef.current, modalButtonText.calendar);
     }
   }, [resortFilterData.checkIn, resortFilterData.checkOut]);
 
   return (
     <Navigation>
       <Button ref={calendarRef} onClick={() => setModalVisibility(visibilityType.calendar)}>
-        날짜
+        {modalButtonText.calendar}
       </Button>
       {modalVisibility === visibilityType.calendar && <Calender close={closeModal} />}
 
-      <Button onClick={() => setModalVisibility(visibilityType.guest)}>인원</Button>
+      <Button onClick={() => setModalVisibility(visibilityType.guest)}>{modalButtonText.guest}</Button>
       {modalVisibility === visibilityType.guest && <Guest close={closeModal} />}
 
-      <Button onClick={() => setModalVisibility(visibilityType.price)}>가격</Button>
+      <Button onClick={() => setModalVisibility(visibilityType.price)}>{modalButtonText.price}</Button>
       {modalVisibility === visibilityType.price && <Price close={closeModal} />}
     </Navigation>
   );
