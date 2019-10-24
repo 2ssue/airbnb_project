@@ -1,6 +1,7 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer, useContext } from 'react';
 import styled from 'styled-components';
 import { size, ModalBackground, colors, ModalButtonContainer, DefaultButton } from '../styles/default_style';
+import { filterInfoContext } from '../../App';
 
 const guestFilterState = {
   adult: 0,
@@ -11,11 +12,11 @@ const guestFilterState = {
 const guestFilterReducer = (state, action) => {
   switch (action.type) {
     case 'adult':
-      return;
+      return { ...state, adult: action.count };
     case 'child':
-      return;
+      return { ...state, child: action.count };
     case 'kid':
-      return;
+      return { ...state, kid: action.count };
     case 'reset':
       return { adult: 0, child: 0, kid: 0 };
   }
@@ -23,52 +24,107 @@ const guestFilterReducer = (state, action) => {
 
 function Guest({ close }) {
   const [guestFilterData, dispatchGuestFilter] = useReducer(guestFilterReducer, guestFilterState);
+  const { dispatchFilter } = useContext(filterInfoContext);
 
   return (
     <ModalBackground onClick={close}>
       <GuestWrapper>
-        {guestConterElement()}
+        <CounterWrapper>
+          <span>성인</span>
+          <Button
+            onClick={e => {
+              if (guestFilterData.adult > 0) {
+                dispatchGuestFilter({ type: 'adult', count: guestFilterData.adult - 1 });
+              }
+              e.stopPropagation();
+            }}
+          >
+            -
+          </Button>
+          <span>{guestFilterData.adult}</span>
+          <Button
+            onClick={e => {
+              dispatchGuestFilter({ type: 'adult', count: guestFilterData.adult + 1 });
+              e.stopPropagation();
+            }}
+          >
+            +
+          </Button>
+        </CounterWrapper>
+        <CounterWrapper>
+          <span>어린이(2-12세)</span>
+          <Button
+            onClick={e => {
+              if (guestFilterData.child > 0) {
+                dispatchGuestFilter({ type: 'child', count: guestFilterData.child - 1 });
+              }
+              e.stopPropagation();
+            }}
+          >
+            -
+          </Button>
+          <span>{guestFilterData.child}</span>
+          <Button
+            onClick={e => {
+              if (guestFilterData.adult === 0) {
+                dispatchGuestFilter({ type: 'adult', count: 1 });
+              }
+              dispatchGuestFilter({ type: 'child', count: guestFilterData.child + 1 });
+              e.stopPropagation();
+            }}
+          >
+            +
+          </Button>
+        </CounterWrapper>
+        <CounterWrapper>
+          <span>유아(2세 미만)</span>
+          <Button
+            onClick={e => {
+              if (guestFilterData.kid > 0) {
+                dispatchGuestFilter({ type: 'kid', count: guestFilterData.kid - 1 });
+              }
+              e.stopPropagation();
+            }}
+          >
+            -
+          </Button>
+          <span>{guestFilterData.kid}</span>
+          <Button
+            onClick={e => {
+              if (guestFilterData.adult === 0) {
+                dispatchGuestFilter({ type: 'adult', count: 1 });
+              }
+              dispatchGuestFilter({ type: 'kid', count: guestFilterData.kid + 1 });
+              e.stopPropagation();
+            }}
+          >
+            +
+          </Button>
+        </CounterWrapper>
         <ModalButtonContainer>
-          <DefaultButton>삭제</DefaultButton>
-          <DefaultButton>저장</DefaultButton>
+          <DefaultButton
+            onClick={e => {
+              dispatchGuestFilter({ type: 'reset' });
+              e.stopPropagation();
+            }}
+          >
+            삭제
+          </DefaultButton>
+          <DefaultButton
+            onClick={() => {
+              const { adult, child, kid } = guestFilterData;
+              const totalGuest = adult + child + kid * 0.1;
+
+              dispatchFilter({ type: 'guest', guest: totalGuest });
+            }}
+          >
+            저장
+          </DefaultButton>
         </ModalButtonContainer>
       </GuestWrapper>
     </ModalBackground>
   );
 }
-
-const guestConterElement = () => {
-  const texts = ['성인', '어린이(2-12세)', '유아(2세 미만)'];
-  return texts.map(text => {
-    const [counter, setCounter] = useState(0);
-
-    return (
-      <CounterWrapper>
-        <span>{text}</span>
-        <Button
-          onClick={e => {
-            setCounter(current => {
-              if (current < 1) return current;
-              return current - 1;
-            });
-            e.stopPropagation();
-          }}
-        >
-          -
-        </Button>
-        <span>{counter}</span>
-        <Button
-          onClick={e => {
-            setCounter(current => current + 1);
-            e.stopPropagation();
-          }}
-        >
-          +
-        </Button>
-      </CounterWrapper>
-    );
-  });
-};
 
 const CounterWrapper = styled.div`
   margin: 2rem 0;
