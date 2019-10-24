@@ -34,10 +34,6 @@ function App() {
   useEffect(() => {
     initialData('/resorts', setResorts);
     setLoad(true);
-  };
-
-  useEffect(() => {
-    initialResortData();
   }, []);
 
   useMemo(() => {
