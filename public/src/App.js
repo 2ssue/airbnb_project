@@ -24,13 +24,14 @@ function App() {
   }, [resortFilterData]);
 
   return (
-    <filterInfoContext.Provider value={{ dispatchFilter, resortFilterData }}>
+    <div>
       <Header>
         <Logo src={logo} alt="logo" />
       </Header>
+      <filterInfoContext.Provider value={{ dispatchFilter, resortFilterData }}>
       <Nav />
       <Resorts resorts={resorts} load={load} />
-    </filterInfoContext.Provider>
+    </div>
   );
 }
 
