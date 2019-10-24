@@ -5,14 +5,9 @@ import Calendar from './modals/Calendar';
 import Guest from './modals/Guest';
 import Price from './modals/Price';
 import { filterInfoContext } from '../App';
-import { changeButtonColorToMain, changeButtonColorToDefault } from '../styles/change_style';
-import { visibilityType, modalButtonText } from '../constants';
-
-const visibilityType = {
-  calendar: 'calendar',
-  guest: 'guest',
-  price: 'price',
-};
+import { visibilityType, modalButtonText, DATE_FORMAT } from '../constants';
+import { changeButtonColorToMain, changeButtonColorToDefault } from './styles/change_style';
+import { DefaultButton } from './styles/default_style';
 
 function Nav() {
   const [modalVisibility, setModalVisibility] = useState('');
@@ -28,7 +23,7 @@ function Nav() {
     const { checkIn, checkOut } = resortFilterData;
 
     if (checkIn && checkOut) {
-      changeButtonColorToMain(calendarRef.current, `${checkIn}~${checkOut}`);
+      changeButtonColorToMain(calendarRef.current, `${checkIn.format(DATE_FORMAT)}~${checkOut.format(DATE_FORMAT)}`);
     } else if (calendarRef.current) {
       changeButtonColorToDefault(calendarRef.current, modalButtonText.calendar);
     }
@@ -36,15 +31,15 @@ function Nav() {
 
   return (
     <Navigation>
-      <Button ref={calendarRef} onClick={() => setModalVisibility(visibilityType.calendar)}>
+      <DefaultButton ref={calendarRef} onClick={() => setModalVisibility(visibilityType.calendar)}>
         {modalButtonText.calendar}
-      </Button>
+      </DefaultButton>
       {modalVisibility === visibilityType.calendar && <Calendar close={closeModal} />}
 
-      <Button onClick={() => setModalVisibility(visibilityType.guest)}>{modalButtonText.guest}</Button>
+      <DefaultButton onClick={() => setModalVisibility(visibilityType.guest)}>{modalButtonText.guest}</DefaultButton>
       {modalVisibility === visibilityType.guest && <Guest close={closeModal} />}
 
-      <Button onClick={() => setModalVisibility(visibilityType.price)}>{modalButtonText.price}</Button>
+      <DefaultButton onClick={() => setModalVisibility(visibilityType.price)}>{modalButtonText.price}</DefaultButton>
       {modalVisibility === visibilityType.price && <Price close={closeModal} />}
     </Navigation>
   );
@@ -54,22 +49,6 @@ const Navigation = styled.nav`
   padding: 0.5rem;
   border-bottom: 1px solid lightgrey;
   display: flex;
-`;
-
-export const Button = styled.button`
-  background-color: white;
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  padding: 0.5rem 0.8rem;
-  margin-right: 0.5rem;
-  font-size: 0.8rem;
-  cursor: pointer;
-  &:hover {
-    ${props => (props.disabled ? 'cursor: default;' : 'background-color: lightgrey;')}
-  }
-  &:focus {
-    outline: none;
-  }
 `;
 
 export default Nav;

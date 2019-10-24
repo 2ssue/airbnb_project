@@ -5,23 +5,28 @@ function Resorts({ resorts, load }) {
   let resortList = 'loading..';
 
   if (load) {
-    resortList = resorts.map(resort => (
-      <List key={resort.name}>
-        <Photo url={resort.photo_url} />
-        <div>
-          <h2>{resort.name}</h2>
-          <InfoContainer>
-            <strong>남은 방</strong> {resort.possible_room - resort.booked}
-            <strong> 가격</strong> {resort.price}
-            <strong> 숙박 가능 인원</strong> {resort.possible_guest}(성인.유아) {/* //ㅠㅠ DB바꿔야할듯 */}
-          </InfoContainer>
-        </div>
-      </List>
-    ));
+    resortList = resorts.reduce((acc, resort) => {
+      if (!resort.booked || resort.possible_room > resort.booked) {
+        acc.push(
+          <List key={resort.name}>
+            <Photo url={resort.photo_url} />
+            <div>
+              <h2>{resort.name}</h2>
+              <InfoContainer>
+                <strong>남은 방</strong> {resort.possible_room - resort.booked || resort.possible_room}
+                <strong> 가격</strong> {resort.price}
+                <strong> 숙박 가능 인원</strong> {resort.possible_guest}(성인.유아) {/* //ㅠㅠ DB바꿔야할듯 */}
+              </InfoContainer>
+            </div>
+          </List>,
+        );
+      }
+      return acc;
+    }, []);
   }
   return (
     <ListContainer>
-      <h1>숙소 {resorts.length}개</h1>
+      <h1>숙소 {resortList.length}개</h1>
       {resortList}
     </ListContainer>
   );

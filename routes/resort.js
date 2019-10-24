@@ -4,7 +4,8 @@ const { resort } = require('../database/models');
 
 router.get('/', async function(req, res, next) {
   let data;
-  if (req.query) {
+
+  if (req.url !== '/') {
     data = await resort.getPartResort(req.query);
   } else {
     data = await resort.getAllResort();

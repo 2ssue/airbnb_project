@@ -4,11 +4,10 @@ import moment from 'moment';
 import styled from 'styled-components';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-import { colors } from '../../styles/default_style';
+import { colors, ModalBackground, size, DefaultButton, ModalButtonContainer } from '../styles/default_style';
 
 import { filterInfoContext } from '../../App';
-import { Button } from '../Nav';
-import { START_DATE, END_DATE, DATE_FORMAT } from '../../constants';
+import { START_DATE, END_DATE } from '../../constants';
 
 function Calendar({ close }) {
   const [startDate, setStartDate] = useState(null);
@@ -38,7 +37,7 @@ function Calendar({ close }) {
   }, [endDate]);
 
   return (
-    <Background onClick={close}>
+    <ModalBackground onClick={close}>
       <DatePickerWrapper>
         <DayPickerRangeController
           keepOpenOnDateSelect
@@ -55,8 +54,8 @@ function Calendar({ close }) {
           onFocusChange={focus => setFocus(focus)}
           isOutsideRange={day => day.isBefore(moment())}
         ></DayPickerRangeController>
-        <ButtonContainer>
-          <Button
+        <ModalButtonContainer>
+          <DefaultButton
             onClick={e => {
               setStartDate(null);
               setEndDate(null);
@@ -67,49 +66,33 @@ function Calendar({ close }) {
             disabled={startDate ? false : true}
           >
             삭제
-          </Button>
-          <Button
+          </DefaultButton>
+          <DefaultButton
             onClick={() => {
               dispatchFilter({
                 type: 'date',
-                checkIn: startDate.format(DATE_FORMAT),
-                checkOut: endDate.format(DATE_FORMAT),
+                checkIn: startDate,
+                checkOut: endDate,
               });
             }}
             disabled={endDate ? false : true}
           >
             저장
-          </Button>
-        </ButtonContainer>
+          </DefaultButton>
+        </ModalButtonContainer>
       </DatePickerWrapper>
-    </Background>
+    </ModalBackground>
   );
 }
 
-const ButtonContainer = styled.div`
-  padding-right: 0.9rem;
-  padding-left: 1.4rem;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Background = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-`;
-
 const DatePickerWrapper = styled.div`
   position: absolute;
-  top: 6rem;
+  top: ${size.modalMarginTop};
   margin-left: 0.5rem;
   padding-top: 0.5rem;
   background-color: white;
   height: 22rem;
-  border-radius: 5px;
+  border-radius: ${size.borderRadius};
 
   .CalendarDay__selected_span {
     background: ${colors.mainAlpha};

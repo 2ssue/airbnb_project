@@ -14,13 +14,23 @@ function App() {
   const [resorts, setResorts] = useState([]);
   const [load, setLoad] = useState(false);
 
-  useEffect(() => {
-    initialData('/resorts', setResorts);
-    setLoad(true);
-  }, []);
-
   useMemo(() => {
+    setLoad(false);
     console.log('App: ', resortFilterData);
+    const queryStrings = Object.keys(resortFilterData).reduce((acc, key) => {
+      if (resortFilterData[key]) {
+        acc.push(`${key.toLowerCase()}=${resortFilterData[key]}`);
+      }
+      return acc;
+    }, []);
+
+    if (queryStrings[0]) {
+      initialData(`/resorts?${queryStrings.join('&')}`, setResorts);
+    } else {
+      initialData('/resorts', setResorts);
+    }
+
+    setLoad(true);
   }, [resortFilterData]);
 
   return (

@@ -3,6 +3,6 @@ export const initialData = async (url, storeCallback) => {
   const initialData = (await response.json()).data;
 
   if (!initialData) return;
-
+  console.log(initialData);
   storeCallback(initialData);
 };
