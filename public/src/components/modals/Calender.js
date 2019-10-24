@@ -1,30 +1,28 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { DayPickerRangeController } from 'react-dates';
 import moment from 'moment';
 import styled from 'styled-components';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { colors } from '../../styles/default_style';
-import { changeButtonColorToMain } from '../../styles/change_style';
 
-import { searchInfoContext } from '../../App';
+import { filterInfoContext } from '../../App';
 import { Button } from '../Nav';
 
-function Calender({ close, reference }) {
+function Calender({ close }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focus, setFocus] = useState('startDate');
+  const { dispatchFilter, resortFilterData } = useContext(filterInfoContext);
 
-  const { setCheckIn, setCheckOut } = useContext(searchInfoContext);
-
-  useEffect(() => {
-    if (reference.current.innerHTML !== '날짜') {
-      const dateString = reference.current.innerHTML.split('~');
-
-      setStartDate(moment(dateString[0]));
-      setEndDate(moment(dateString[1]));
+  useMemo(() => {
+    const { checkIn, checkOut } = resortFilterData;
+    console.log('calendar: ', resortFilterData);
+    if (checkIn && checkOut) {
+      setStartDate(moment(checkIn));
+      setEndDate(moment(checkOut));
     }
-  }, []);
+  }, [resortFilterData]);
 
   useEffect(() => {
     if (startDate) {
@@ -61,6 +59,7 @@ function Calender({ close, reference }) {
             onClick={e => {
               setStartDate(null);
               setEndDate(null);
+              dispatchFilter({ type: 'date', checkIn: null, checkOut: null });
               setFocus('startDate');
               e.stopPropagation();
             }}
@@ -70,12 +69,11 @@ function Calender({ close, reference }) {
           </Button>
           <Button
             onClick={() => {
-              setCheckIn(startDate);
-              setCheckOut(endDate);
-              changeButtonColorToMain(
-                reference.current,
-                `${startDate.format('YYYY[/]MM[/]DD')} ~ ${endDate.format('YYYY[/]MM[/]DD')}`,
-              );
+              dispatchFilter({
+                type: 'date',
+                checkIn: startDate.format('YYYY[/]MM[/]DD'),
+                checkOut: endDate.format('YYYY[/]MM[/]DD'),
+              });
             }}
             disabled={endDate ? false : true}
           >

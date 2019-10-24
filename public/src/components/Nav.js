@@ -1,29 +1,50 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext, useMemo } from 'react';
 import styled from 'styled-components';
 
 import Calender from './modals/Calender';
 import Guest from './modals/Guest';
 import Price from './modals/Price';
+import { filterInfoContext } from '../App';
+import { changeButtonColorToMain, changeButtonColorToDefault } from '../styles/change_style';
+
+const visibilityType = {
+  calendar: 'calendar',
+  guest: 'guest',
+  price: 'price',
+};
 
 function Nav() {
   const [modalVisibility, setModalVisibility] = useState('');
-  const calenderRef = useRef(null);
+  const { resortFilterData } = useContext(filterInfoContext);
+  const calendarRef = useRef(null);
+
   const closeModal = () => {
     setModalVisibility('');
   };
 
+  useMemo(() => {
+    console.log('navigation: ', resortFilterData);
+    const { checkIn, checkOut } = resortFilterData;
+
+    if (checkIn && checkOut) {
+      changeButtonColorToMain(calendarRef.current, `${checkIn}~${checkOut}`);
+    } else if (calendarRef.current) {
+      changeButtonColorToDefault(calendarRef.current, '날짜');
+    }
+  }, [resortFilterData.checkIn, resortFilterData.checkOut]);
+
   return (
     <Navigation>
-      <Button ref={calenderRef} onClick={() => setModalVisibility('calender')}>
+      <Button ref={calendarRef} onClick={() => setModalVisibility(visibilityType.calendar)}>
         날짜
       </Button>
-      {modalVisibility === 'calender' && <Calender close={closeModal} reference={calenderRef} />}
+      {modalVisibility === visibilityType.calendar && <Calender close={closeModal} />}
 
-      <Button onClick={() => setModalVisibility('guest')}>인원</Button>
-      {modalVisibility === 'guest' && <Guest close={closeModal} />}
+      <Button onClick={() => setModalVisibility(visibilityType.guest)}>인원</Button>
+      {modalVisibility === visibilityType.guest && <Guest close={closeModal} />}
 
-      <Button onClick={() => setModalVisibility('price')}>가격</Button>
-      {modalVisibility === 'price' && <Price close={closeModal} />}
+      <Button onClick={() => setModalVisibility(visibilityType.price)}>가격</Button>
+      {modalVisibility === visibilityType.price && <Price close={closeModal} />}
     </Navigation>
   );
 }
