@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext, useMemo } from 'react';
 import styled from 'styled-components';
 
-import Calender from './modals/Calender';
+import Calendar from './modals/Calendar';
 import Guest from './modals/Guest';
 import Price from './modals/Price';
 import { filterInfoContext } from '../App';
@@ -39,7 +39,7 @@ function Nav() {
       <Button ref={calendarRef} onClick={() => setModalVisibility(visibilityType.calendar)}>
         {modalButtonText.calendar}
       </Button>
-      {modalVisibility === visibilityType.calendar && <Calender close={closeModal} />}
+      {modalVisibility === visibilityType.calendar && <Calendar close={closeModal} />}
 
       <Button onClick={() => setModalVisibility(visibilityType.guest)}>{modalButtonText.guest}</Button>
       {modalVisibility === visibilityType.guest && <Guest close={closeModal} />}

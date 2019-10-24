@@ -10,7 +10,7 @@ import { filterInfoContext } from '../../App';
 import { Button } from '../Nav';
 import { START_DATE, END_DATE, DATE_FORMAT } from '../../constants';
 
-function Calender({ close }) {
+function Calendar({ close }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focus, setFocus] = useState(START_DATE);
@@ -133,4 +133,4 @@ const DatePickerWrapper = styled.div`
   }
 `;
 
-export default Calender;
+export default Calendar;
