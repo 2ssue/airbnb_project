@@ -62,8 +62,9 @@ export const Button = styled.button`
   padding: 0.5rem 0.8rem;
   margin-right: 0.5rem;
   font-size: 0.8rem;
+  cursor: pointer;
   &:hover {
-    ${props => (props.disabled ? '' : 'background-color: lightgrey; cursor: pointer;')}
+    ${props => (props.disabled ? 'cursor: default;' : 'background-color: lightgrey;')}
   }
   &:focus {
     outline: none;
