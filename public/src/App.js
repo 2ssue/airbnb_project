@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Nav from './components/Nav';
 import Resorts from './components/Resorts';
+import { initialData } from './util/utils';
 
 export const filterInfoContext = React.createContext();
 
@@ -30,12 +31,8 @@ function App() {
   const [resorts, setResorts] = useState([]);
   const [load, setLoad] = useState(false);
 
-  const initialResortData = async () => {
-    const response = await fetch('/resorts');
-    const initialData = (await response.json()).data;
-
-    if (!initialData) return;
-    setResorts(initialData);
+  useEffect(() => {
+    initialData('/resorts', setResorts);
     setLoad(true);
   };
 
