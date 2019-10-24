@@ -29,7 +29,8 @@ function App() {
         <Logo src={logo} alt="logo" />
       </Header>
       <filterInfoContext.Provider value={{ dispatchFilter, resortFilterData }}>
-      <Nav />
+        <Nav />
+      </filterInfoContext.Provider>
       <Resorts resorts={resorts} load={load} />
     </div>
   );
