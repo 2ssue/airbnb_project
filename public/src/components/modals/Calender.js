@@ -8,11 +8,12 @@ import { colors } from '../../styles/default_style';
 
 import { filterInfoContext } from '../../App';
 import { Button } from '../Nav';
+import { START_DATE, END_DATE, DATE_FORMAT } from '../../constants';
 
 function Calender({ close }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [focus, setFocus] = useState('startDate');
+  const [focus, setFocus] = useState(START_DATE);
   const { dispatchFilter, resortFilterData } = useContext(filterInfoContext);
 
   useMemo(() => {
@@ -26,13 +27,13 @@ function Calender({ close }) {
 
   useEffect(() => {
     if (startDate) {
-      setFocus('endDate');
+      setFocus(END_DATE);
     }
   }, [startDate]);
 
   useEffect(() => {
     if (endDate) {
-      setFocus('startDate');
+      setFocus(START_DATE);
     }
   }, [endDate]);
 
@@ -60,7 +61,7 @@ function Calender({ close }) {
               setStartDate(null);
               setEndDate(null);
               dispatchFilter({ type: 'date', checkIn: null, checkOut: null });
-              setFocus('startDate');
+              setFocus(START_DATE);
               e.stopPropagation();
             }}
             disabled={startDate ? false : true}
@@ -71,8 +72,8 @@ function Calender({ close }) {
             onClick={() => {
               dispatchFilter({
                 type: 'date',
-                checkIn: startDate.format('YYYY[/]MM[/]DD'),
-                checkOut: endDate.format('YYYY[/]MM[/]DD'),
+                checkIn: startDate.format(DATE_FORMAT),
+                checkOut: endDate.format(DATE_FORMAT),
               });
             }}
             disabled={endDate ? false : true}

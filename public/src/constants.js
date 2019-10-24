@@ -9,3 +9,7 @@ export const modalButtonText = {
   guest: '인원',
   price: '가격',
 };
+
+export const START_DATE = 'startDate';
+export const END_DATE = 'endDate';
+export const DATE_FORMAT = 'YYYY[/]MM[/]DD';
