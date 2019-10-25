@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useMemo } from 'react';
+import React, { useState, useReducer, useMemo } from 'react';
 import logo from './logo.svg';
 import styled from 'styled-components';
 
