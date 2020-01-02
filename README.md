@@ -7,8 +7,6 @@
     <img alt="project-management" src="https://img.shields.io/badge/database--document-wiki-blue" target="_blank" />
 </a>
 
-## 🏠 [PUBLISH PAGE](http://106.10.46.87:3000)
-
 ## Install
 
 ```bash
